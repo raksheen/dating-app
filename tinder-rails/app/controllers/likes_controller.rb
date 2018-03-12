@@ -6,15 +6,15 @@ class LikesController < ApplicationController
 
   def create
     friend = User.where(id: params[:like][:user_id])
-        p friend 
-
+    p friend 
     # friend = User.find(params[:friend_id])
-    friend.likes.create!(like_params)
+    like = Like.create!(like_params)
+
     # Like.create(friend: @friend)
     # like = friend.likes.new # or Like.create(friend: @friend)
     # like.user = current_user
     # WebsocketRails[:likes].trigger 'new', { id: friend.id}
-    render json: friend.likes 
+    render json: like
   end
   ###
 
