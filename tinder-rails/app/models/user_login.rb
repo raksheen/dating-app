@@ -18,7 +18,7 @@ class User_login < ApplicationRecord
   end
 
   def is_password?(password_attempt)
-    BCrypt::Password.new(password_digest).is_password?(password_attempt)
+    BCrypt::Password.new(password).is_password?(password_attempt)
   end
 
   def password=(password)

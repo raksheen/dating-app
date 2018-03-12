@@ -30,7 +30,7 @@ class App extends Component {
 
   register(data) {
     console.log("register data", data);
-    axios("http://localhost:3000/users/", {
+    axios("http://localhost:3000/users", {
       method: "POST",
       data
     })

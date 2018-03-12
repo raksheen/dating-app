@@ -48,5 +48,8 @@ class UsersController < ApplicationController
     else 
       render json: {user: user, token: gen_token(user.id)}
     end
-  end
+    private 
+  def user_params
+   params.require(:user).permit(:username,:password)    
+ end
 end
