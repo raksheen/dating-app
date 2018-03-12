@@ -12,8 +12,24 @@ class App extends Component {
   // note that TokenService.save with the token is called
   // may also want to setState with the user data and
   // whether or not the user is logged in
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+      logged: false,
+      users: []
+    };
+    this.register = this.register.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+  }
+
+  componentDidMount() {}
 
   register(data) {
+    console.log("register data", data);
     axios("http://localhost:3000/users/", {
       method: "POST",
       data
@@ -50,6 +66,18 @@ class App extends Component {
     })
       .then(resp => console.log(resp))
       .catch(err => console.log(err));
+  }
+
+  updateUser(data) {
+    axios(`http://localhost:3000/users/${this.state.user.id}`, {
+      method: "PUT",
+      data
+    })
+      .then(resp => {
+        TokenService.save(resp.data.token);
+        this.setState({ user: resp.data.user });
+      })
+      .catch(err => console.log(`err: ${err}`));
   }
 
   // just delete the token
