@@ -5,8 +5,24 @@ class LikesController < ApplicationController
   end 
 
   def create
-    like = Like.create!(user_params)
-    render json: like
+    friend = User.where(id: params[:like][:user_id])
+        p friend 
+
+    # friend = User.find(params[:friend_id])
+    friend.likes.create!(like_params)
+    # Like.create(friend: @friend)
+    # like = friend.likes.new # or Like.create(friend: @friend)
+    # like.user = current_user
+    # WebsocketRails[:likes].trigger 'new', { id: friend.id}
+    render json: friend.likes 
+  end
+  ###
+
+
+  # DELETE /posts/:id/likes
+  def destroy
+    current_user.likes.find(params[:id]).destroy
+    redirect_to posts_path
   end
 
   private
