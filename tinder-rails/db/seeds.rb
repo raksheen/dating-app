@@ -7,11 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create([
-        { name: 'Ryan Gosling', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
-        { name: 'Jorge Correa Jr', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
-        { name: 'Garret Rasko Martinis', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
-        { name: 'Jennifer Lora', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
-        { name: 'Niko Bella Lewis', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"}
+        { username: 'Ryan Gosling', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
+        { username: 'Jorge Correa Jr', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
+        { username: 'Garret Rasko Martinis', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
+        { username: 'Jennifer Lora', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"},
+        { username: 'Niko Bella Lewis', email: "ryan@gmail.com", gender: 'm', age: 35, profile_pic: 'http://coolspotters.com/files/photos/591533/ryan-gosling-large.jpg?1357449177', city: "LA", tagline:"I don't need dating apps actually"}
     ])
 
 Like.create([

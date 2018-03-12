@@ -113,7 +113,13 @@ class App extends Component {
         </div>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/"
+              component={props => (
+                <Home {...props} submit={this.login.bind(this)} />
+              )}
+            />
             <Route
               exact
               path="/register"
