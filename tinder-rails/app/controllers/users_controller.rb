@@ -1,15 +1,15 @@
 class UsersController < ApplicationController
 
 ##AUTH FUNCTIONALITY   
- def index
-    puts 'called'
-    session[:session_token] = 3
-    render json: [1, 2, 3, 4]
-  end
+ # def index
+ #    puts 'called'
+ #    session[:session_token] = 3
+ #    render json: [1, 2, 3, 4]
+ #  end
 
   def index
     users = User.all
-    render json: users
+    # render json: users
     pick_next_friend
   end
 
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
       password: password,
       username: username
     })
-    render json: user  
+    # render json: user  
 
     p new_user
 
@@ -80,7 +80,9 @@ class UsersController < ApplicationController
     liked = params[:liked].present?
     current_user.liked.create(friend_id: friend_id, liked: liked)
     pick_next_friend
-    render :index
+    # render plain: "you like this person"
+    # render json: like 
+    # render :index
   end
 
   def swipeLeft
@@ -88,7 +90,11 @@ class UsersController < ApplicationController
   end
    
   def pick_next_friend
-      friend = User.where.not(friend_id:current_user.id).order("RANDOM()").first
+    p current_user
+      friends = User.where.not(id: 2)
+      render json: friends 
+      # friend = User.where.not(user_id: current_user.id).order("RANDOM()").first
+
   end
       
    private 

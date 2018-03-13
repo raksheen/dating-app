@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :users 
   resources :likes 
   resources :messages
+  get 'friends', :to => 'users#pick_next_friend'
 end
