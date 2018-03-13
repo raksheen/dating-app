@@ -10,11 +10,32 @@ class UsersController < ApplicationController
   def index
     users = User.all
     render json: users
+    pick_next_friend
   end
 
   def gen_token(user_id)
     payload = {id: user_id}
     JWT.encode(payload, Rails.application.secrets.secret_key_base) 
+  end
+
+
+  def is_logged_in
+    if current_user
+      render json: current_user
+    else render nothing: true, status: 401
+    end
+  end
+
+  def login
+    username = params[:username]
+    password = params[:password]
+
+    user = User.find_from_credentials username, password
+    if user.nil?
+      render json: { err: 'No User' }
+    else 
+      render json: {user: user, token: gen_token(user.id)}
+    end
   end
 
   def create
@@ -53,31 +74,27 @@ class UsersController < ApplicationController
     render plain: "your profile is deleted"
   end
 
-  def is_logged_in
-    if current_user
-      render json: current_user
-    else render nothing: true, status: 401
-    end
+####SWIPING 
+  def swipeRight
+    friend_id = params[:id]
+    liked = params[:liked].present?
+    current_user.liked.create(friend_id: friend_id, liked: liked)
+    pick_next_friend
+    render :index
   end
 
-  def login
-    username = params[:username]
-    password = params[:password]
+  def swipeLeft
+    pick_next_friend
+  end
+   
+  def pick_next_friend
+      friend = User.where.not(friend_id:current_user.id).order("RANDOM()").first
+  end
+      
+   private 
 
-    user = User.find_from_credentials username, password
-    if user.nil?
-      render json: { err: 'No User' }
-    else 
-      render json: {user: user, token: gen_token(user.id)}
-    end
-  end 
-    
-    private 
-
-    def user_params
+  def user_params
       params.require(:user).permit(:username,:password)    
-    end
-#### END AUTH CODE  
-
+  end
 
 end
