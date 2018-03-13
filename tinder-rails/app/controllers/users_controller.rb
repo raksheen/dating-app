@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  validates :ensureLoggedIn
 
 ##AUTH FUNCTIONALITY   
  # def index
@@ -50,10 +51,10 @@ class UsersController < ApplicationController
 
     p new_user
 
-    if new_user
+    if new_user.valid?
       render json: {token: gen_token(new_user.id)}
     else
-      render json: {err: 'nope'}
+      render nothing: true, status: 401
     end
   end
 
@@ -75,6 +76,8 @@ class UsersController < ApplicationController
   end
 
 ####SWIPING 
+
+
   def swipeRight
     friend_id = params[:id]
     liked = params[:liked].present?
@@ -91,10 +94,9 @@ class UsersController < ApplicationController
    
   def pick_next_friend
     p current_user
-      friends = User.where.not(id: 2)
+      friends = User.where.not(id: current_user.id)
       render json: friends 
       # friend = User.where.not(user_id: current_user.id).order("RANDOM()").first
-
   end
       
    private 

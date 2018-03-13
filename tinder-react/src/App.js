@@ -24,9 +24,13 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    // this.queryUsers = this.queryUsers.bind(this);
   }
 
-  componentDidMount() {}
+  // componentDidMount() {
+  //   this.queryUsers();
+  //   console.log("in componentDidMount, state: ", this.state);
+  // }
 
   register(data) {
     console.log("register data", data);
@@ -50,6 +54,9 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
+        this.setState({
+          logged: true
+        });
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -86,13 +93,27 @@ class App extends Component {
     TokenService.destroy();
   }
 
+  // queryUsers() {
+  //   axios("http://localhost:3000/users", {
+  //     method: "GET"
+  //   })
+  //     .then(resp => {
+  //       this.setState({ users: resp.data.users });
+  //       console.log("in queryUsers, users are ", this.state.users);
+  //     })
+  //     .catch(err => console.log(`err: ${err}`));
+  // }
+
   checkLogin() {
     axios("http://localhost:3000/isLoggedIn", {
       headers: {
         Authorization: `Bearer ${TokenService.read()}`
       }
     })
-      .then(resp => console.log(resp))
+      .then(resp => {
+        console.log("checkLogin", resp);
+        this.setState({ user: resp.data.user });
+      })
       .catch(err => console.log(err));
   }
 

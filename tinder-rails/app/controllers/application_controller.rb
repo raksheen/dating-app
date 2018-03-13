@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::API
+
+  def ensureLoggedIn
+
+  return 
+
+  end 
+
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   def encode(payload, exp = 24.hours.from_now)
