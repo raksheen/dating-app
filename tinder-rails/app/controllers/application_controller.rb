@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
 
   def ensureLoggedIn
-
+    find_current_user || render_unauthorized("Access Denied")
   return 
 
   end 
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
     body = JWT.decode(token, Rails.application.secrets.secret_key_base)[0] 
     HashWithIndifferentAccess.new body 
 
-  rescue nil 
+  # rescue nil 
 
   end
 
@@ -25,8 +25,10 @@ class ApplicationController < ActionController::API
   end
 
   def find_current_user
+    puts 'find current user'
     authenticate_with_http_token do | token, options |
       data = decode(token)
+      puts token
       token && User.find(data[:id])
     end
   end
@@ -35,4 +37,11 @@ class ApplicationController < ActionController::API
     return if current_user
     render nothing: true, status: 401
   end
+
+  protected 
+
+  def render_unauthorized(message)
+    errors = {errors: [detail: message]}
+    render json: errors, status: :unauthorized
+  end 
 end

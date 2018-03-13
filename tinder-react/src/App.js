@@ -64,16 +64,16 @@ class App extends Component {
   // calling a restricted route on the server
   // the important part is setting the Authorization header
   // with the token retrieved from the TokenService
-  authClick(ev) {
-    ev.preventDefault();
-    axios("http://localhost:3000/bottles", {
-      headers: {
-        Authorization: `Bearer ${TokenService.read()}`
-      }
-    })
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err));
-  }
+  // authClick(ev) {
+  //   ev.preventDefault();
+  //   axios("http://localhost:3000/bottles", {
+  //     headers: {
+  //       Authorization: `Bearer ${TokenService.read()}`
+  //     }
+  //   })
+  //     .then(resp => console.log(resp))
+  //     .catch(err => console.log(err));
+  // }
 
   updateUser(data) {
     axios(`http://localhost:3000/users/${this.state.user.id}`, {
@@ -121,8 +121,6 @@ class App extends Component {
     return (
       <div>
         <div>
-          Weird button:{" "}
-          <button onClick={this.authClick.bind(this)}>Weird Button</button>
           <p>
             <button onClick={this.checkLogin.bind(this)}>
               Check If Logged In
