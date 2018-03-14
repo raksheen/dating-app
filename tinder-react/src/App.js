@@ -28,7 +28,7 @@ class App extends Component {
     this.checkLogin = this.checkLogin.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.friendOptions = this.friendOptions.bind(this);
-    // this.queryUsers = this.queryUsers.bind(this);
+    this.likePerson = this.likePerson.bind(this);
   }
 
   componentDidMount() {
@@ -85,15 +85,17 @@ class App extends Component {
     TokenService.destroy();
   }
 
-  // queryUsers() {
-  //   axios("http://localhost:3000/users", {
+  // friendOptions() {
+  //   axios("http://localhost:3000/friends", {
   //     method: "GET"
   //   })
   //     .then(resp => {
-  //       this.setState({ users: resp.data.users });
-  //       console.log("in queryUsers, users are ", this.state.users);
+  //       console.log("all users", resp),
+  //         this.setState({
+  //           all_users: resp
+  //         });
   //     })
-  //     .catch(err => console.log(`err: ${err}`));
+  //     .catch(err => console.log(err));
   // }
 
   checkLogin() {
@@ -111,7 +113,7 @@ class App extends Component {
       })
       .catch(err => console.log(err));
   }
-
+  //shows ALL users except yourself
   friendOptions() {
     axios("http://localhost:3000/friends", {
       headers: {
@@ -121,11 +123,29 @@ class App extends Component {
       .then(resp => {
         console.log("response from friends ", resp.data);
         this.setState({
-          other_users: resp.data,
+          // other_users: resp.data,
           logged: true
         });
       })
       .catch(err => console.log(err));
+  }
+
+  //logging swipes
+
+  likePerson() {
+    console.log("likePerson");
+
+    axios("http://localhost:3000/friends/swipeRight", {
+      method: "POST"
+    })
+      .then(resp => {
+        TokenService.save(resp.data.token);
+        this.setState({
+          logged: true,
+          log_likes: resp.data
+        });
+      })
+      .catch(err => console.log(`err: ${err}`));
   }
 
   render() {
@@ -179,6 +199,8 @@ class App extends Component {
                   user={this.state.user}
                   logged={this.state.logged}
                   other_users={this.state.other_users}
+                  friendOptions={this.friendOptions}
+                  likePerson={this.likePerson}
                 />
               )}
             />

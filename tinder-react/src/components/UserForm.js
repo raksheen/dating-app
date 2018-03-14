@@ -36,7 +36,6 @@ export default class UserForm extends Component {
           <input
             type="text"
             name="username"
-            defaultValue=""
             placeholder="username"
             onChange={this.handleChange}
             value={this.state.username}
@@ -48,7 +47,7 @@ export default class UserForm extends Component {
           <input
             type="password"
             name="password"
-            defaultValue=""
+            // defaultValue=""
             placeholder="password"
             onChange={this.handleChange}
             value={this.state.password}

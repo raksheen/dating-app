@@ -5,46 +5,29 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import TokenService from "../services/TokenService";
 
-// import Login from './Login';
-// import Register from './Register';
-// import Header from './Header';
-
 class DisplayProfiles extends Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.routeToResults = this.routeToResults.bind(this);
-    // this.notInterested = this.notInterested.bind(this);
-    this.interested = this.interested.bind(this);
+    this.swipeLeft = this.swipeLeft.bind(this);
+    this.swipeRight = this.swipeRight.bind(this);
   }
 
   routeToResults() {
     this.props.history.push("/profiles");
   }
 
-  // notInterested() {
-  //   axios("http://localhost:3000/friendNo", {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${TokenService.read()}`
-  //     }
-  //   })
-  //     .then(resp => {
-  //       console.log("all users", resp);
-  //       this.setState({
-  //         all_users: resp.data
-  //       });
-  //     })
-  //     .catch(err => console.log(err));
-  // }
+  swipeLeft() {
+    this.props.friendOptions();
+  }
 
-  interested() {}
+  swipeRight() {
+    this.props.likePerson();
+  }
 
   render() {
     console.log(this.props.other_users);
-    // const profiles = this.props.profiles;
-    // const resultsList = results.hits.map(profileObject => {
-    //   const userInfo = profileObject.users;
     if (
       this.props.logged === true &&
       this.props.user &&
@@ -53,17 +36,15 @@ class DisplayProfiles extends Component {
       return (
         <div>
           <div>
-            Displays Profiles of Potentials
+            <h2>Displays Profiles of Potentials</h2>
             <img src={this.props.other_users.profile_pic} />
             <h3>{this.props.other_users.username}</h3>
             <h4>{this.props.other_users.age}</h4>
             <h5>{this.props.other_users.tagline}</h5>
           </div>
           <div className="swipe">
-            <button onClick={this.props.notInterested}>
-              I'd rather be single
-            </button>
-            <button onClick={this.interested}>Put a ring on it</button>
+            <button onClick={this.swipeLeft}>I'd rather be single</button>
+            <button onClick={this.swipeRight}>Put a ring on it</button>
           </div>
         </div>
       );

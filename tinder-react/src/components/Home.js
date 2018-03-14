@@ -11,7 +11,7 @@ export default class Home extends Component {
       all_users: []
     };
     this.onSubmit = this.onSubmit.bind(this);
-    this.friendOptions = this.friendOptions.bind(this);
+    // this.friendOptions = this.friendOptions.bind(this);
     // this.friendsExceptMe = this.friendsExceptMe.bind(this);
   }
 
@@ -20,18 +20,19 @@ export default class Home extends Component {
     this.props.submit(data);
   }
 
-  friendOptions() {
-    axios("http://localhost:3000/friends", {
-      method: "GET"
-    })
-      .then(resp => {
-        console.log("all users", resp),
-          this.setState({
-            all_users: resp
-          });
-      })
-      .catch(err => console.log(err));
-  }
+  // friendOptions() {
+  //   axios("http://localhost:3000/friends", {
+  //     method: "GET"
+  //   })
+  //     .then(resp => {
+  //       console.log("all users", resp),
+  //         this.setState({
+  //           all_users: resp
+  //         });
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+
   // friendsExceptMe() {
   //   console.log("friendsExceptMe", this.props);
   //   const isLoggedIn = this.props.logged;

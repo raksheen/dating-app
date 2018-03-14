@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensureLoggedIn,only:[:pick_next_friend, :pick_next_friend, :swipeRight, :swipeLeft, :show]
+  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :swipeRight, :show]
   # before_action :ensureLoggedIn,only:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
   # validates :current_user
 ##AUTH FUNCTIONALITY   
@@ -83,11 +83,45 @@ class UsersController < ApplicationController
     friend_id = params[:id]
     liked = params[:liked].present?
     current_user.liked.create(friend_id: friend_id, liked: liked)
+    # checkMatch
     pick_next_friend
     # render plain: "you like this person"
     # render json: likes  
     # render :index
   end
+
+
+# def create
+#     user = current_user
+#     likes_friend = User.find(params[:friend_id])
+
+#     if likes_friend.likes_user(user) != []
+#       preexisting_match = likes_friend.likes_user(user).first
+#       preexisting_match.mutual = true
+#       preexisting_match.save
+#       # redirect_to profiles_path, alert: 'Congratulations it\'s a match!'
+#       conversation = Conversation.new(match: preexisting_match)
+#       authorize liked
+#       liked.save
+#       notice: 'Congratulations its a match!'
+#     else
+#       match = Match.new(first_user: user, second_user: likes_friend)
+#       authorize match
+#       match.save
+#       notice: 'You liked that person!'
+#     end
+#   end
+# def checkMatch
+#     friend_id = params[:id]
+#     liked_friend = User.find(params[:friend_id])
+#     user_pressed_btn = current_user
+#     liked = Liked.new(current_user: user_pressed_btn, friend_id: liked_friend)
+#     authorize liked
+#     if params[:liked].present?
+#        User.match = match.where(id: params[:liked])
+#       render json: likes 
+#     end
+# end
 
   def swipeLeft
     pick_next_friend
