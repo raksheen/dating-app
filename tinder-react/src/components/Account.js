@@ -5,7 +5,9 @@ import Profile from "./Profile";
 export default class Account extends Component {
   constructor(props) {
     super(props);
-    this.state = { editing: false };
+    this.state = {
+      editing: false
+    };
     this.logout = this.logout.bind(this);
     this.editProfile = this.editProfile.bind(this);
   }
@@ -30,9 +32,11 @@ export default class Account extends Component {
         <Profile submit={this.props.change} user={this.props.user} />
       );
     }
-    console.log("check: am I logged in?", this.props.logged);
 
-    if (this.props.logged === true) {
+    console.log("check: am I logged in?", this.props.logged);
+    console.log("check: this.props?", this.props.user);
+
+    if (this.props.logged === true && this.props.user) {
       return (
         <div className="app-container">
           <h1>Hi there, {this.props.user.username}!</h1>
@@ -42,7 +46,7 @@ export default class Account extends Component {
           <h3>City:{this.props.user.city} </h3>
           <h2>About Me</h2>
           <h3>{this.props.user.tagline}</h3>
-          <button onClick={this.editProfile}>Edit Profile</button>
+          <button onClick={this.editProfile}>Edit About Me</button>
           {checkProfileEdit}
           <button onClick={this.logout}>Logout</button>
         </div>

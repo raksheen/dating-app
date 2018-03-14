@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :likes 
   resources :messages
   get 'friends', :to => 'users#pick_next_friend'
+  get 'friendNo', :to => 'users#swipeLeft'
+
 end

@@ -17,22 +17,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: null,
       logged: false,
-      users: []
+      users: [],
+      other_users: null
     };
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.friendOptions = this.friendOptions.bind(this);
     // this.queryUsers = this.queryUsers.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.queryUsers();
-  //   console.log("in componentDidMount, state: ", this.state);
-  // }
+  componentDidMount() {
+    this.checkLogin();
+    console.log("in componentDidMount, state: ", this.state);
+  }
 
   register(data) {
     console.log("register data", data);
@@ -56,8 +58,10 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
+        console.log("haiiiiiiiiiii", resp.data);
         this.setState({
-          logged: true
+          logged: true,
+          user: resp.data
         });
       })
       .catch(err => console.log(`err: ${err}`));
@@ -100,7 +104,26 @@ class App extends Component {
     })
       .then(resp => {
         console.log("checkLogin", resp);
-        this.setState({ user: resp.data.user });
+        this.setState({
+          user: resp.data,
+          logged: true
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  friendOptions() {
+    axios("http://localhost:3000/friends", {
+      headers: {
+        Authorization: `Bearer ${TokenService.read()}`
+      }
+    })
+      .then(resp => {
+        console.log("response from friends ", resp.data);
+        this.setState({
+          other_users: resp.data,
+          logged: true
+        });
       })
       .catch(err => console.log(err));
   }
@@ -112,6 +135,11 @@ class App extends Component {
           <p>
             <button onClick={this.checkLogin.bind(this)}>
               Check If Logged In
+            </button>
+          </p>
+          <p>
+            <button onClick={this.friendOptions.bind(this)}>
+              Next Friend Options
             </button>
           </p>
           <p>
@@ -145,7 +173,13 @@ class App extends Component {
               exact
               path="/displayprofiles"
               component={props => (
-                <DisplayProfiles {...props} submit={this.login.bind(this)} />
+                <DisplayProfiles
+                  {...props}
+                  submit={this.login.bind(this)}
+                  user={this.state.user}
+                  logged={this.state.logged}
+                  other_users={this.state.other_users}
+                />
               )}
             />
             <Route
@@ -167,5 +201,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

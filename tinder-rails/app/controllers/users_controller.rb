@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :ensureLoggedIn,except:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
+  before_action :ensureLoggedIn,only:[:pick_next_friend, :pick_next_friend, :swipeRight, :swipeLeft, :show]
+  # before_action :ensureLoggedIn,only:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
   # validates :current_user
 ##AUTH FUNCTIONALITY   
  # def index
@@ -84,7 +85,7 @@ class UsersController < ApplicationController
     current_user.liked.create(friend_id: friend_id, liked: liked)
     pick_next_friend
     # render plain: "you like this person"
-    render json: like 
+    # render json: likes  
     # render :index
   end
 
@@ -95,7 +96,7 @@ class UsersController < ApplicationController
   def pick_next_friend
     p current_user
     # current_user = params[:current_user]
-      friends = User.where.not(id: current_user).order("RANDOM()").first
+      friends = User.where.not(id: current_user.id).order("RANDOM()").first
       render json: friends 
       # friend = User.where.not(user_id: current_user.id).order("RANDOM()").first
   end
