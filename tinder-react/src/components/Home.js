@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import UserForm from "./UserForm";
+import TokenService from "../services/TokenService";
 
 export default class Home extends Component {
   constructor(props) {
@@ -45,14 +46,31 @@ export default class Home extends Component {
   render() {
     return (
       <div className="app-container">
-        <h1>Tinder: but simpler</h1>
-        <h3>Login here</h3>
-        <UserForm submit={this.onSubmit} />
-        <button onClick={this.friendOptions}>all users except me </button>
+        <h1 className="simpler-name">simpler</h1>
+        <div className="login-box">
+          <h3>Login: home.js</h3>
+          <UserForm submit={this.onSubmit} />
+          <button onClick={this.friendOptions}>all users except me </button>
+          <br />
+          <p>
+            Don't have an account?<Link to="/register">
+              <br />
+              <button>Sign up!</button>
+            </Link>
+          </p>
+        </div>
         <p>
-          Don't have an account?<Link to="/register">
-            <button>Sign up!</button>
-          </Link>
+          <button
+            onClick={() => {
+              axios("http://localhost:3000/friends", {
+                headers: {
+                  Authorization: `Bearer ${TokenService.read()}`
+                }
+              }).then(res => console.log("response from friends ", res.data));
+            }}
+          >
+            Get friends
+          </button>
         </p>
         <br />
       </div>

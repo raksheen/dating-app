@@ -94,8 +94,8 @@ class UsersController < ApplicationController
    
   def pick_next_friend
     p current_user
-    current_user = params[:current_user]
-      friends = User.where.not(id: current_user)
+    # current_user = params[:current_user]
+      friends = User.where.not(id: current_user).order("RANDOM()").first
       render json: friends 
       # friend = User.where.not(user_id: current_user.id).order("RANDOM()").first
   end

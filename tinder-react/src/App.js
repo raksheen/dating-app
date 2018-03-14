@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import axios from "axios";
-import logo from "./logo.svg";
+import "./App.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import TokenService from "./services/TokenService";
+import Account from "./components/Account";
+import DisplayProfiles from "./components/DisplayProfiles";
 
 class App extends Component {
   // api call for creating a new user
@@ -60,20 +62,6 @@ class App extends Component {
       })
       .catch(err => console.log(`err: ${err}`));
   }
-
-  // calling a restricted route on the server
-  // the important part is setting the Authorization header
-  // with the token retrieved from the TokenService
-  // authClick(ev) {
-  //   ev.preventDefault();
-  //   axios("http://localhost:3000/bottles", {
-  //     headers: {
-  //       Authorization: `Bearer ${TokenService.read()}`
-  //     }
-  //   })
-  //     .then(resp => console.log(resp))
-  //     .catch(err => console.log(err));
-  // }
 
   updateUser(data) {
     axios(`http://localhost:3000/users/${this.state.user.id}`, {
@@ -151,6 +139,26 @@ class App extends Component {
               path="/login"
               component={props => (
                 <Login {...props} submit={this.login.bind(this)} />
+              )}
+            />
+            <Route
+              exact
+              path="/displayprofiles"
+              component={props => (
+                <DisplayProfiles {...props} submit={this.login.bind(this)} />
+              )}
+            />
+            <Route
+              exact
+              path="/account"
+              component={props => (
+                <Account
+                  {...props}
+                  user={this.state.user}
+                  logged={this.state.logged}
+                  logout={this.logout}
+                  change={this.updateUser}
+                />
               )}
             />
           </Switch>

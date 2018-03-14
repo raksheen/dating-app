@@ -16,7 +16,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <p>Login</p>
+        <p>Login- this doesn't show up</p>
         <UserForm submit={this.onSubmit} />
         <p>
           <Link to="/">
