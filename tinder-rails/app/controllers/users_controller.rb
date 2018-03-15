@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :swipeRight, :show]
+  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show]
   # before_action :ensureLoggedIn,only:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
   # validates :current_user
 ##AUTH FUNCTIONALITY   
@@ -90,27 +90,15 @@ class UsersController < ApplicationController
     # render :index
   end
 
+  def swipeRight
+    inverse_friendship = User.where(id: current_user.id)
+    liked = params
+    current_user.create(friend_id: friend_id,liked: liked)
+        
+        
+    end
 
-# def create
-#     user = current_user
-#     likes_friend = User.find(params[:friend_id])
 
-#     if likes_friend.likes_user(user) != []
-#       preexisting_match = likes_friend.likes_user(user).first
-#       preexisting_match.mutual = true
-#       preexisting_match.save
-#       # redirect_to profiles_path, alert: 'Congratulations it\'s a match!'
-#       conversation = Conversation.new(match: preexisting_match)
-#       authorize liked
-#       liked.save
-#       notice: 'Congratulations its a match!'
-#     else
-#       match = Match.new(first_user: user, second_user: likes_friend)
-#       authorize match
-#       match.save
-#       notice: 'You liked that person!'
-#     end
-#   end
 # def checkMatch
 #     friend_id = params[:id]
 #     liked_friend = User.find(params[:friend_id])
@@ -134,7 +122,7 @@ class UsersController < ApplicationController
       render json: friends 
       # friend = User.where.not(user_id: current_user.id).order("RANDOM()").first
   end
-      
+
    private 
 
   def user_params

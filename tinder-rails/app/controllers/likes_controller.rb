@@ -1,4 +1,6 @@
 class LikesController < ApplicationController
+# before_action :ensureLoggedIn,only:[ :swipedRight]
+
   def index 
     likes = Like.all 
     render json: likes
@@ -18,6 +20,27 @@ class LikesController < ApplicationController
   end
   ###
 
+  def swipedRight
+    friend_id = params[:id]
+    like = params[:liked].present?
+    Like.create(friend_id: friend_id, liked: true)
+    # current_user.ike.create(friend_id: friend_id, liked: liked)
+    # pick_next_friend
+    render json: like
+  end 
+
+   # def swipedRight
+   #  like = current_user.liked.new
+   #  @like.post = Like.find_by_id(params[:friend_id])
+    
+   #  liked.save
+
+   #  respond_to do |format|
+   #    format.js 
+   #  end
+  # end
+
+
 
   # DELETE /posts/:id/likes
   def destroy
@@ -28,7 +51,7 @@ class LikesController < ApplicationController
   private
  
   def like_params
-    params.require(:like).permit(:user_id, :friend_id)
+    params.require(:like).permit(:user_id, :friend_id, liked: liked)
   end
 
 

@@ -123,7 +123,7 @@ class App extends Component {
       .then(resp => {
         console.log("response from friends ", resp.data);
         this.setState({
-          // other_users: resp.data,
+          other_users: resp.data,
           logged: true
         });
       })
@@ -135,10 +135,11 @@ class App extends Component {
   likePerson() {
     console.log("likePerson");
 
-    axios("http://localhost:3000/friends/swipeRight", {
+    axios("http://localhost:3000/swipedRight", {
       method: "POST"
     })
       .then(resp => {
+        console.log("is swipe right working?", resp.data);
         TokenService.save(resp.data.token);
         this.setState({
           logged: true,

@@ -27,7 +27,7 @@ class DisplayProfiles extends Component {
   }
 
   render() {
-    console.log(this.props.other_users);
+    console.log("display profiles:", this.props.other_users);
     if (
       this.props.logged === true &&
       this.props.user &&
