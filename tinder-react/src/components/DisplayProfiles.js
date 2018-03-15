@@ -53,7 +53,7 @@ class DisplayProfiles extends Component {
         <div className="app-container">
           <h2>You need to login to see this page</h2>
           <Link to="/">
-            <button>Login/Back to Home</button>
+            <button>Home</button>
           </Link>
         </div>
       );

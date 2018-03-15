@@ -20,25 +20,26 @@ class LikesController < ApplicationController
   end
   ###
 
-  def swipedRight
-    friend_id = params[:id]
-    like = params[:liked].present?
-    Like.create(friend_id: friend_id, liked: true)
-    # current_user.ike.create(friend_id: friend_id, liked: liked)
-    # pick_next_friend
-    render json: like
-  end 
+  # def swipedRight
+  #   friend_id = params[:id]
+  #   like = params[:liked].present?
+  #   Like.create(friend_id: friend_id, liked: true)
+  #   # current_user.ike.create(friend_id: friend_id, liked: liked)
+  #   # pick_next_friend
+  #   Like.save
+  # end 
 
-   # def swipedRight
-   #  like = current_user.liked.new
-   #  @like.post = Like.find_by_id(params[:friend_id])
+   def swipedRight
+    user = current_user
+    friend = params[:friend_id]
+    likes = {user_id: user, friend_id: friend}
+    like = Like.new(likes)
+
+    like.save
+    render json: like 
     
-   #  liked.save
+  end
 
-   #  respond_to do |format|
-   #    format.js 
-   #  end
-  # end
 
 
 

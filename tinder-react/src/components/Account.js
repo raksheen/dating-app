@@ -49,6 +49,10 @@ export default class Account extends Component {
           <button onClick={this.editProfile}>Edit About Me</button>
           {checkProfileEdit}
           <button onClick={this.logout}>Logout</button>
+          <br />
+          <Link to="/">
+            <button>Home</button>
+          </Link>
         </div>
       );
     } else {

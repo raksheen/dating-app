@@ -9,11 +9,11 @@ export default class Register extends Component {
       username: "",
       password: "",
       email: "",
-      username: "",
       gender: "",
+      age: "",
       city: "",
       tagline: "",
-      about_me: ""
+      profile_pic: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,8 +22,7 @@ export default class Register extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // this.props.submit(this.state);
-    this.props.onSubmit();
+    this.props.submit(this.state);
     this.props.history.push("/account");
   }
 
@@ -38,7 +37,7 @@ export default class Register extends Component {
     return (
       <div className="signup">
         <form onSubmit={this.handleSubmit}>
-          <h1>Sign up to create an account</h1>
+          <h1>Create An Account</h1>
           <label>
             Name:
             <input
@@ -81,7 +80,6 @@ export default class Register extends Component {
               type="text"
               name="gender"
               placeholder="gender"
-              defaultValue=""
               onChange={this.handleChange}
               value={this.state.gender}
             />
@@ -93,7 +91,6 @@ export default class Register extends Component {
               type="text"
               name="age"
               placeholder="age"
-              defaultValue=""
               onChange={this.handleChange}
               value={this.state.age}
             />
@@ -105,7 +102,6 @@ export default class Register extends Component {
               type="text"
               name="profile_pic"
               placeholder="link to image"
-              defaultValue=""
               onChange={this.handleChange}
               value={this.state.profile_pic}
             />
@@ -117,7 +113,6 @@ export default class Register extends Component {
               type="text"
               name="city"
               placeholder="city"
-              defaultValue=""
               onChange={this.handleChange}
               value={this.state.city}
             />
@@ -127,9 +122,8 @@ export default class Register extends Component {
             About Me:
             <input
               type="text"
-              name="about_me"
+              name="tagline"
               placeholder="write something to share"
-              defaultValue=""
               onChange={this.handleChange}
               value={this.state.tagline}
             />

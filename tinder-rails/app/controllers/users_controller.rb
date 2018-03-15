@@ -43,10 +43,21 @@ class UsersController < ApplicationController
   def create
     username = params[:username]
     password = params[:password]
+    email = params[:email]
+    gender = params[:gender]
+    age = params[:age]
+    city = params[:city]
+    tagline = params[:tagline]
+
 
     new_user = User.create!({
       password: password,
-      username: username
+      username: username, 
+      email: email, 
+      gender: gender, 
+      age: age, 
+      city: city, 
+      tagline: tagline
     })
     # render json: user  
 
