@@ -5,8 +5,14 @@ Rails.application.routes.draw do
   resources :users 
   resources :likes 
   resources :messages
+  get 'likes', :to => 'likes#checkMatch'
   get 'friends', :to => 'users#pick_next_friend'
   post 'swipedRight', :to => 'likes#swipedRight'
   post 'users/login', :to => 'users#create'
+
+  ##to get matches to work
+  get   'matches' => "likes#checkMatch"
+  post   'matches' => "likes#checkMatch"
+  # delete 'delete_friendship' => "friendships#destroy"
 
 end

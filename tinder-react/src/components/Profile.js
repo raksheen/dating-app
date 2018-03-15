@@ -6,7 +6,7 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       username: this.props.user.username,
-      tagline: this.props.user.tagline
+      tagline: ""
     };
 
     this.handleChange = this.handleChange.bind(this);

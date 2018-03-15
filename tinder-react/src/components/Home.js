@@ -18,6 +18,7 @@ export default class Home extends Component {
   onSubmit(data) {
     console.log(`handling submit: ${data}`);
     this.props.submit(data);
+    this.props.history.push("/account");
   }
 
   // friendOptions() {

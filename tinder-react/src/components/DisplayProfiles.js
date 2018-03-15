@@ -12,7 +12,13 @@ class DisplayProfiles extends Component {
     this.routeToResults = this.routeToResults.bind(this);
     this.swipeLeft = this.swipeLeft.bind(this);
     this.swipeRight = this.swipeRight.bind(this);
+    this.itsAMatch = this.itsAMatch.bind(this);
   }
+
+  // componentDidMount() {
+  //   this.itsAMatch();
+  //   console.log("componentDidMount: it's a match", this.state);
+  // }
 
   routeToResults() {
     this.props.history.push("/profiles");
@@ -22,8 +28,14 @@ class DisplayProfiles extends Component {
     this.props.friendOptions();
   }
 
-  swipeRight() {
-    this.props.likePerson();
+  swipeRight(friend) {
+    console.log("swipeRight test", friend);
+    this.props.likePerson(friend);
+  }
+
+  itsAMatch(match) {
+    this.props.match();
+    console.log("match logged", match);
   }
 
   render() {

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show]
+  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show, :matches, :set_user, :user_params]
   # before_action :ensureLoggedIn,only:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
   # validates :current_user
 ##AUTH FUNCTIONALITY   
@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     age = params[:age]
     city = params[:city]
     tagline = params[:tagline]
+    profile_pic = params[:profile_pic]
 
 
     new_user = User.create!({
@@ -57,7 +58,8 @@ class UsersController < ApplicationController
       gender: gender, 
       age: age, 
       city: city, 
-      tagline: tagline
+      tagline: tagline, 
+      profile_pic: profile_pic
     })
     # render json: user  
 
@@ -75,11 +77,19 @@ class UsersController < ApplicationController
     render json: user
   end 
 
-  def update 
+  # def update 
+  #   user = User.find(params[:id])
+  #   user.update!(user_params)
+  #   render json: user
+  #  end 
+
+
+  def update
+    tagline = params[:tagline]
     user = User.find(params[:id])
-    user.update!(user_params)
+    user.update(tagline: tagline)
     render json: user
-   end 
+  end 
    
   def destroy
     user = User.find(params[:id])
@@ -105,9 +115,12 @@ class UsersController < ApplicationController
     inverse_friendship = User.where(id: current_user.id)
     liked = params
     current_user.create(friend_id: friend_id,liked: liked)
-        
-        
-    end
+  end
+
+ def matches
+    authorize! :read, user
+    matches = current_user.friendships.where(state: "ACTIVE").map(&:friend_id) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user_id)
+  end
 
 
 # def checkMatch
@@ -135,9 +148,11 @@ class UsersController < ApplicationController
   end
 
    private 
-
+  def set_user
+    user = User.find(params[:id])
+  end
   def user_params
-      params.require(:user).permit(:username,:password)    
+      params.require(:user).permit(:username,:password,:email, :gender, :age, :city, :tagline, :profile_pic)    
   end
 
 end

@@ -10,6 +10,7 @@ export default class Account extends Component {
     };
     this.logout = this.logout.bind(this);
     this.editProfile = this.editProfile.bind(this);
+    this.showFirstProfile = this.showFirstProfile.bind(this);
   }
 
   logout() {
@@ -22,6 +23,10 @@ export default class Account extends Component {
       const nextState = { ...prevState, editing: !prevState.editing };
       return nextState;
     });
+  }
+
+  showFirstProfile() {
+    this.props.friendOptions();
   }
 
   render() {
@@ -41,6 +46,7 @@ export default class Account extends Component {
         <div className="app-container">
           <h1>Hi there, {this.props.user.username}!</h1>
           <br />
+          <img src={this.props.user.profile_pic} />
           <h2>Age: {this.props.user.age}</h2>
           <h2>Gender: {this.props.user.gender}</h2>
           <h3>City:{this.props.user.city} </h3>
@@ -53,6 +59,10 @@ export default class Account extends Component {
           <Link to="/">
             <button>Home</button>
           </Link>
+          <br />
+          <Link to="/DisplayProfiles">
+            <button onClick={this.showFirstProfile}>Start Finding Love</button>
+          </Link>
         </div>
       );
     } else {
@@ -60,7 +70,10 @@ export default class Account extends Component {
         <div className="app-container">
           <h2>You need to login to see this page</h2>
           <Link to="/">
-            <button>Login/Back to Home</button>
+            <button>Login</button>
+          </Link>
+          <Link to="/Register">
+            <button>Create an Account</button>
           </Link>
         </div>
       );

@@ -29,6 +29,7 @@ class App extends Component {
     this.updateUser = this.updateUser.bind(this);
     this.friendOptions = this.friendOptions.bind(this);
     this.likePerson = this.likePerson.bind(this);
+    this.match = this.match.bind(this);
   }
 
   componentDidMount() {
@@ -80,8 +81,8 @@ class App extends Component {
   }
 
   // just delete the token
-  logout(ev) {
-    ev.preventDefault();
+  logout() {
+    // ev.preventDefault();
     TokenService.destroy();
   }
 
@@ -132,18 +133,43 @@ class App extends Component {
 
   //logging swipes
 
-  likePerson() {
-    console.log("likePerson");
+  likePerson(friend) {
+    console.log("likePerson", friend);
 
     axios("http://localhost:3000/swipedRight", {
-      method: "POST"
+      method: "POST",
+      data: { friend_id: friend.id },
+      headers: {
+        Authorization: `Bearer ${TokenService.read()}`
+      }
     })
       .then(resp => {
         console.log("is swipe right working?", resp.data);
-        TokenService.save(resp.data.token);
+        // TokenService.save(resp.data.token);
         this.setState({
           logged: true,
           log_likes: resp.data
+        });
+      })
+      .catch(err => console.log(`err: ${err}`));
+    this.match();
+  }
+  //CHECK to see if it's a MATCH
+  match() {
+    console.log("a match");
+
+    axios("http://localhost:3000/matches", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${TokenService.read()}`
+      }
+    })
+      .then(resp => {
+        console.log("is Match working?", resp.data);
+        // TokenService.save(resp.data.token);
+        this.setState({
+          logged: true,
+          matched: resp.data
         });
       })
       .catch(err => console.log(`err: ${err}`));
@@ -202,6 +228,7 @@ class App extends Component {
                   other_users={this.state.other_users}
                   friendOptions={this.friendOptions}
                   likePerson={this.likePerson}
+                  match={this.match}
                 />
               )}
             />
@@ -215,6 +242,7 @@ class App extends Component {
                   logged={this.state.logged}
                   logout={this.logout}
                   change={this.updateUser}
+                  friendOptions={this.friendOptions}
                 />
               )}
             />
