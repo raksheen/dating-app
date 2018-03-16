@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch]
+before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch, :showMessage]
 # before_action :set_friend
 
   def index 
@@ -39,6 +39,7 @@ before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch]
     like.save
     render json: like 
     checkMatch
+    puts "checkMatch running?"
   end
 
   def checkMatch
@@ -51,12 +52,23 @@ before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch]
       if match
         the_matches.push(match.user)
         puts "its a match"
-        render plain: "Yey, it's a match"
-        # redirect_to users_pick_next_friend
+
+        # render notice: "Yey, it's a match"
+        # flash.now[:alert] = "Yey it's a match!"
+        # showMessage 
+        # redirect_to :controller => 'users', :action => 'pick_next_friend'
+      else 
+        puts "not a match"
       end 
+
     end
     the_matches
   end
+
+  def showMessage 
+    render json: "hooray! it's a match"
+    # redirect_to :controller => 'users', :action => 'pick_next_friend'
+  end 
 
 
   # def checkMatch
@@ -109,9 +121,9 @@ before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch]
 
   private
  
-  def like_params
-    params.require(:like).permit(:user_id, :friend_id, liked: liked)
-  end
+  # def like_params
+  #   params.require(:like).permit(:user_id, :friend_id)
+  # end
 
   # def set_friend
   #   friendPerson = User.find(params[:friend_id])

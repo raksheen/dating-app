@@ -1,6 +1,6 @@
 * {
   /*background: url("https://media.giphy.com/media/26DN8ySyHfWZzDPEI/giphy.gif");*/
-  background: url("./tinder_color.jpg");
+  /*background: url("./tinder_color.jpg");*/
   background-color: transparent;
   font-family: "Fjalla One", sans-serif;
   /*background-color: rgb(244, 18, 56);*/
@@ -8,6 +8,15 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+.outside-switch {
+  background: url("./tinder_color.jpg");
+  width: 100%;
+  height: 800px;
+  margin-top: 0;
+  border: 0;
+  padding: 0;
 }
 
 /*HOME*/
@@ -107,19 +116,19 @@
   border: 3px solid white;
   border-radius: 8px;
   animation-name: love;
-  animation-duration: 4s;
+  animation-duration: 5s infinite;
 }
 @keyframes love {
   0% {
     background-color: white;
   }
   25% {
-    background-color: yellow;
+    background-color: transparent;
   }
   50% {
-    background-color: blue;
+    background-color: white;
   }
   100% {
-    background-color: green;
+    background-color: transparent;
   }
 }

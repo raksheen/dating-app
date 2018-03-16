@@ -18,7 +18,8 @@ ActiveRecord::Schema.define(version: 20180310181447) do
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "friend_id"
-    t.boolean "liked"
+    t.string "state", default: "pending"
+    t.datetime "friended_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_likes_on_user_id"
@@ -40,8 +41,8 @@ ActiveRecord::Schema.define(version: 20180310181447) do
     t.string "gender"
     t.integer "age"
     t.string "profile_pic"
-    t.integer "city"
-    t.integer "tagline"
+    t.string "city"
+    t.string "tagline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

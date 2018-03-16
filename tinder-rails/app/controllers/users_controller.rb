@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show, :matches, :set_user, :user_params]
+  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show, :matches, :set_user, :user_params, :update]
   # before_action :ensureLoggedIn,only:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
   # validates :current_user
 ##AUTH FUNCTIONALITY   
@@ -90,6 +90,7 @@ class UsersController < ApplicationController
     user.update(tagline: tagline)
     render json: user
   end 
+
    
   def destroy
     user = User.find(params[:id])

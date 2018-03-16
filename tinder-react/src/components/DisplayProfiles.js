@@ -5,6 +5,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import Modal from "react-responsive-modal";
 import "../App.css";
+import matchAlert from "./matchAlert";
 
 // import TokenService from "../services/TokenService";
 
@@ -46,9 +47,8 @@ class DisplayProfiles extends Component {
     this.props.friendOptions();
   }
 
-  swipeRight(friend) {
-    console.log("swipeRight test", friend);
-    this.props.likePerson(friend);
+  swipeRight() {
+    this.props.likePerson(this.props.other_users);
   }
 
   // checkForMatch() {
@@ -91,6 +91,7 @@ class DisplayProfiles extends Component {
                 Put a ring on it
               </div>
             </button>
+            <matchAlert />
           </div>
         </div>
       );
@@ -101,10 +102,6 @@ class DisplayProfiles extends Component {
           <Link to="/">
             <button>Home</button>
           </Link>
-
-          <Modal open={open} onClose={this.onCloseModal} little>
-            <h2>It's a match!</h2>
-          </Modal>
         </div>
       );
     }

@@ -10,6 +10,7 @@ import Account from "./components/Account";
 import DisplayProfiles from "./components/DisplayProfiles";
 import MatchModal from "./components/MatchModal";
 import tinder_color from "./tinder_color.jpg";
+import matchAlert from "./components/matchAlert";
 
 class App extends Component {
   // api call for creating a new user
@@ -43,15 +44,18 @@ class App extends Component {
   }
 
   register(data) {
-    console.log("register data", data);
-    axios("http://localhost:3000/users", {
+    console.log("in register, data: ", data);
+    axios("http://localhost:3000/users/", {
       method: "POST",
       data
     })
       .then(resp => {
         TokenService.save(resp.data.token);
+        this.setState({ user: resp.data.user, logged: true });
+        console.log("in register, user is ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
+    this.checkLogin();
   }
 
   // same as above except route is login
@@ -165,17 +169,29 @@ class App extends Component {
           matched: resp.data,
           model_is_open: true
         });
+        this.matchAlert();
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
-  openModal() {
-    return <MatchModal />;
+  matchAlert() {
+    axios("http://localhost:3000/showMessage", {
+      headers: {
+        Authorization: `Bearer ${TokenService.read()}`
+      }
+    })
+      .then(resp => {
+        console.log("show message ", resp.data);
+        this.setState({
+          logged: true
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     return (
-      <div>
+      <div className="outside-switch">
         <div>
           <p>
             <button onClick={this.checkLogin.bind(this)}>
@@ -235,6 +251,14 @@ class App extends Component {
                 />
               )}
             />
+            <Route
+              exact
+              path="/matchAlert"
+              component={props => (
+                <itsAMatch {...props} itsAMatch={this.matchAlert} />
+              )}
+            />
+
             <Route
               exact
               path="/account"
