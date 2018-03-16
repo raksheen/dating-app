@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show, :matches, :set_user, :user_params, :update]
+  before_action :ensureLoggedIn,only:[:pick_next_friend, :swipeLeft, :show, :matches, :set_user, :user_params]
   # before_action :ensureLoggedIn,only:[:create, :login, :is_logged_in, :pick_next_friend, :index,:user_params, :pick_next_friend, :swipeRight, :swipeLeft, :show, :current_user]
   # validates :current_user
 ##AUTH FUNCTIONALITY   
@@ -84,12 +84,12 @@ class UsersController < ApplicationController
   #  end 
 
 
-  # def update
-  #   tagline = params[:tagline]
-  #   user = User.find(params[:id])
-  #   user.update(tagline: tagline)
-  #   render json: user
-  # end 
+  def update
+    tagline = params[:tagline]
+    user = User.find(params[:id])
+    user.update(tagline: tagline)
+    render json: user
+  end 
    
   def destroy
     user = User.find(params[:id])
@@ -100,27 +100,27 @@ class UsersController < ApplicationController
 ####SWIPING 
 
 
-  # def swipeRight
-  #   friend_id = params[:id]
-  #   liked = params[:liked].present?
-  #   current_user.liked.create(friend_id: friend_id, liked: liked)
-  #   # checkMatch
-  #   pick_next_friend
-  #   # render plain: "you like this person"
-  #   # render json: likes  
-  #   # render :index
-  # end
+  def swipeRight
+    friend_id = params[:id]
+    liked = params[:liked].present?
+    current_user.liked.create(friend_id: friend_id, liked: liked)
+    # checkMatch
+    pick_next_friend
+    # render plain: "you like this person"
+    # render json: likes  
+    # render :index
+  end
 
- #  def swipeRight
- #    inverse_friendship = User.where(id: current_user.id)
- #    liked = params
- #    current_user.create(friend_id: friend_id,liked: liked)
- #  end
+  def swipeRight
+    inverse_friendship = User.where(id: current_user.id)
+    liked = params
+    current_user.create(friend_id: friend_id,liked: liked)
+  end
 
- # def matches
- #    authorize! :read, user
- #    matches = current_user.friendships.where(state: "ACTIVE").map(&:friend_id) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user_id)
- #  end
+ def matches
+    authorize! :read, user
+    matches = current_user.friendships.where(state: "ACTIVE").map(&:friend_id) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user_id)
+  end
 
 
 # def checkMatch
@@ -135,9 +135,9 @@ class UsersController < ApplicationController
 #     end
 # end
 
-  # def swipeLeft
-  #   pick_next_friend
-  # end
+  def swipeLeft
+    pick_next_friend
+  end
    
   def pick_next_friend
     p current_user
