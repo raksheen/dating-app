@@ -59,14 +59,16 @@
   margin-right: auto;
   margin-bottom: auto;
   border: 5px solid white;
+  overflow: hidden;
 }
 .how-do-you-feel {
   font-size: 35px;
 }
 
-.profile-photos {
-  width: 100px;
-}
+/*.profile-photos {
+  width: auto;
+  height: 400px;
+}*/
 
 .swipe {
   display: flex;

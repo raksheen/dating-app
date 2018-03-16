@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   post   'matches' => "likes#checkMatch"
   # delete 'delete_friendship' => "friendships#destroy"
 
+  get 'editProfile' => "users#update"
+  put 'editProfile' => "users#update"
 end

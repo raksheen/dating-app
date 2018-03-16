@@ -43,13 +43,15 @@ class App extends Component {
   }
 
   register(data) {
-    console.log("register data", data);
-    axios("http://localhost:3000/users", {
+    console.log("in register, data: ", data);
+    axios("http://localhost:3000/users/", {
       method: "POST",
       data
     })
       .then(resp => {
         TokenService.save(resp.data.token);
+        this.setState({ user: resp.data.user, logged: true });
+        console.log("in register, user is ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -71,9 +73,11 @@ class App extends Component {
         });
       })
       .catch(err => console.log(`err: ${err}`));
+    this.checkLogin();
   }
 
   updateUser(data) {
+    console.log("in updateUser, user is ", this.state.user);
     axios(`http://localhost:3000/users/${this.state.user.id}`, {
       method: "PUT",
       data
@@ -81,6 +85,7 @@ class App extends Component {
       .then(resp => {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user });
+        console.log("in login, user is ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -192,7 +197,7 @@ class App extends Component {
           </p>
           <div>
             <h1 className="app-name">ExpMatch</h1>
-            <h2 class="hopeless">find love in a hopeless place</h2>
+            <h2 className="hopeless">find love in a hopeless place</h2>
           </div>
         </div>
         <BrowserRouter>
@@ -208,7 +213,7 @@ class App extends Component {
               exact
               path="/register"
               component={props => (
-                <Register {...props} submit={this.register.bind(this)} />
+                <Register {...props} submit={this.register} />
               )}
             />
             <Route
