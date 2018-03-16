@@ -1,25 +1,41 @@
 // import { Link } from "react-router-dom";
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import "../App.css";
 import { Link } from "react-router-dom";
-import TokenService from "../services/TokenService";
+import Modal from "react-responsive-modal";
+// import TokenService from "../services/TokenService";
 
 class DisplayProfiles extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      open: false
+    };
     this.routeToResults = this.routeToResults.bind(this);
     this.swipeLeft = this.swipeLeft.bind(this);
     this.swipeRight = this.swipeRight.bind(this);
-    this.itsAMatch = this.itsAMatch.bind(this);
+    // this.checkForMatch = this.checkForMatch.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.itsAMatch();
-  //   console.log("componentDidMount: it's a match", this.state);
+  // this.modalHandler = this.modalHandler.bind(this);
+
+  // modalHandler() {
+  //   this.setState(prevState => {
+  //     prevState.modalOpen = !prevState.modalOpen;
+  //     return prevState;
+  //   });
   // }
 
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
   routeToResults() {
     this.props.history.push("/profiles");
   }
@@ -33,12 +49,14 @@ class DisplayProfiles extends Component {
     this.props.likePerson(friend);
   }
 
-  itsAMatch(match) {
-    this.props.match();
-    console.log("match logged", match);
-  }
+  // checkForMatch() {
+  //   if (this.props.model_is_open == true) {
+  //   }
+  //   this.setState({ model_is_open: true });
+  // }
 
   render() {
+    const { open } = this.state;
     console.log("display profiles:", this.props.other_users);
     if (
       this.props.logged === true &&
@@ -67,6 +85,10 @@ class DisplayProfiles extends Component {
           <Link to="/">
             <button>Home</button>
           </Link>
+
+          <Modal open={open} onClose={this.onCloseModal} little>
+            <h2>It's a match!</h2>
+          </Modal>
         </div>
       );
     }

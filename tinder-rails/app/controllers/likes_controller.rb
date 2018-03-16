@@ -51,7 +51,7 @@ before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch]
       if match
         the_matches.push(match.user)
         puts "its a match"
-      end
+      end 
     end
     the_matches
   end

@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import TokenService from "./services/TokenService";
 import Account from "./components/Account";
 import DisplayProfiles from "./components/DisplayProfiles";
+import MatchModal from "./components/MatchModal";
 
 class App extends Component {
   // api call for creating a new user
@@ -20,7 +21,8 @@ class App extends Component {
       user: null,
       logged: false,
       users: [],
-      other_users: null
+      other_users: null,
+      model_is_open: false
     };
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -30,6 +32,7 @@ class App extends Component {
     this.friendOptions = this.friendOptions.bind(this);
     this.likePerson = this.likePerson.bind(this);
     this.match = this.match.bind(this);
+    // this.openModal = this.openModal.bind(this);
   }
 
   componentDidMount() {
@@ -169,11 +172,17 @@ class App extends Component {
         // TokenService.save(resp.data.token);
         this.setState({
           logged: true,
-          matched: resp.data
+          matched: resp.data,
+          model_is_open: true
         });
+        // this.openModal();
       })
       .catch(err => console.log(`err: ${err}`));
   }
+
+  // openModal() {
+  //   return <MatchModal />;
+  // }
 
   render() {
     return (
@@ -229,6 +238,7 @@ class App extends Component {
                   friendOptions={this.friendOptions}
                   likePerson={this.likePerson}
                   match={this.match}
+                  model_is_open={this.state.model_is_open}
                 />
               )}
             />
