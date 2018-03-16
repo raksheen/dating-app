@@ -1,17 +1,36 @@
 * {
+  /*background: url("https://media.giphy.com/media/26DN8ySyHfWZzDPEI/giphy.gif");*/
   background: url("./tinder_color.jpg");
+  background-color: transparent;
   font-family: "Fjalla One", sans-serif;
-  background-color: rgb(244, 18, 56);
+  /*background-color: rgb(244, 18, 56);*/
+  /*background-color: rgba(225, 48, 68, 0.5);*/
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
-.simpler-name {
+
+/*HOME*/
+.home-app-container {
+  z-index: 999;
+}
+
+.hopeless {
+  margin-top: 0;
+  margin-left: 110px;
+}
+
+.app-name {
   font-family: "Fjalla One", sans-serif;
   text-align: center;
+  font-size: 100px;
+  margin: -23px;
 }
 .login-box {
   text-align: center;
+}
+.sign-in-button {
+  font-size: 18px;
 }
 
 /*MODAL */
@@ -33,23 +52,74 @@
 /*Display Profile Page*/
 
 .display-profiles {
-  width: 40%;
+  width: 400px;
+  height: 500px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: auto;
+  border: 5px solid white;
+}
+.how-do-you-feel {
+  font-size: 35px;
+}
+
+.profile-photos {
+  width: 100px;
+}
+
+.swipe {
+  display: flex;
+  /*position: absolute;*/
+  bottom: 100px;
+
+  /*float: right;*/
+}
+
+.swipe-left-button {
+  content: url("./swipe-left.png");
+  height: 60px;
+  border: none;
+}
+
+.swipe-right-button {
+  content: url("./swipe-right_2.png");
+  height: 60px;
+  border: none;
 }
 
 /*ACCOUNT page*/
+
+.profile-pic {
+  width: 300px;
+}
 .find-love {
+}
+.love-button {
   width: 20%;
   height: 30%;
   font-size: 50px;
-}
-.love-button {
+  background-color: transparent;
   font-size: 50px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   border: 3px solid white;
   border-radius: 8px;
+  animation-name: love;
+  animation-duration: 4s;
+}
+@keyframes love {
+  0% {
+    background-color: white;
+  }
+  25% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: blue;
+  }
+  100% {
+    background-color: green;
+  }
 }

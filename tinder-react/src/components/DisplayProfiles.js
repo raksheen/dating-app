@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import Modal from "react-responsive-modal";
+import "../App.css";
+
 // import TokenService from "../services/TokenService";
 
 class DisplayProfiles extends Component {
@@ -66,15 +68,29 @@ class DisplayProfiles extends Component {
       return (
         <div className="display-profiles">
           <div>
-            <h2>Displays Profiles of Potentials</h2>
-            <img src={this.props.other_users.profile_pic} />
-            <h3>{this.props.other_users.username}</h3>
-            <h4>{this.props.other_users.age}</h4>
+            <h2 className="how-do-you-feel">
+              How do you feel about {this.props.other_users.username}?
+            </h2>
+            <div className="profile-photos">
+              <img src={this.props.other_users.profile_pic} />
+            </div>
+            <h3>
+              {this.props.other_users.username}, {this.props.other_users.age}
+            </h3>
             <h5>{this.props.other_users.tagline}</h5>
           </div>
           <div className="swipe">
-            <button onClick={this.swipeLeft}>I'd rather be single</button>
-            <button onClick={this.swipeRight}>Put a ring on it</button>
+            <button onClick={this.swipeLeft}>
+              <div className="swipe-left-button" alt="I'd rather be single">
+                I'd rather be single{" "}
+              </div>
+            </button>
+
+            <button onClick={this.swipeRight}>
+              <div className="swipe-right-button" alt="Put a ring on it">
+                Put a ring on it
+              </div>
+            </button>
           </div>
         </div>
       );

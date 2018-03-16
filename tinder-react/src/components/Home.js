@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import UserForm from "./UserForm";
 import TokenService from "../services/TokenService";
+import "../App.css";
 
 export default class Home extends Component {
   constructor(props) {
@@ -47,10 +48,9 @@ export default class Home extends Component {
   // }
   render() {
     return (
-      <div className="app-container">
-        <h1 className="simpler-name">simpler</h1>
+      <div className="home-app-container">
         <div className="login-box">
-          <h3>Sign In</h3>
+          <h3 className="sign-in-button">Sign In</h3>
           <UserForm submit={this.onSubmit} />
           <br />
           <p>

@@ -50,10 +50,12 @@ export default class Account extends Component {
         <div className="app-container">
           <h1>Hi there, {this.props.user.username}!</h1>
           <br />
-          <img src={this.props.user.profile_pic} />
+
+          <img src={this.props.user.profile_pic} className="profile-pic" />
+
           <h2>Age: {this.props.user.age}</h2>
           <h2>Gender: {this.props.user.gender}</h2>
-          <h3>City:{this.props.user.city} </h3>
+          <h3>City: {this.props.user.city} </h3>
           <h2>About Me</h2>
           <h3>{this.props.user.tagline}</h3>
           <button onClick={this.editProfile}>Edit About Me</button>
@@ -65,13 +67,11 @@ export default class Account extends Component {
           </Link>
           <br />
           <br />
-          <div className="find-love">
-            <Link to="/DisplayProfiles">
-              <button className="love-button" onClick={this.showFirstProfile}>
-                Find Love
-              </button>
-            </Link>
-          </div>
+          <Link to="/DisplayProfiles">
+            <button onClick={this.showFirstProfile} className="love-button">
+              Find My Next Ex
+            </button>
+          </Link>
         </div>
       );
     } else {

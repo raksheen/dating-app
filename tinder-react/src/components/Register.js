@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import UserForm from "./UserForm";
+import tinder_color from "../tinder_color.jpg";
+import "../App.css";
 
 export default class Register extends Component {
   constructor(props) {
@@ -99,6 +101,7 @@ export default class Register extends Component {
           <label>
             Profile Picture:
             <input
+              defaultValue=""
               type="text"
               name="profile_pic"
               placeholder="link to image"
@@ -110,6 +113,7 @@ export default class Register extends Component {
           <label>
             City:
             <input
+              defaultValue=""
               type="text"
               name="city"
               placeholder="city"
@@ -121,9 +125,10 @@ export default class Register extends Component {
           <label>
             About Me:
             <input
+              defaultValue=""
               type="text"
               name="tagline"
-              placeholder="write something to share"
+              placeholder="tagline"
               onChange={this.handleChange}
               value={this.state.tagline}
             />

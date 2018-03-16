@@ -9,6 +9,7 @@ import TokenService from "./services/TokenService";
 import Account from "./components/Account";
 import DisplayProfiles from "./components/DisplayProfiles";
 import MatchModal from "./components/MatchModal";
+import tinder_color from "./tinder_color.jpg";
 
 class App extends Component {
   // api call for creating a new user
@@ -183,12 +184,16 @@ class App extends Component {
           </p>
           <p>
             <button onClick={this.friendOptions.bind(this)}>
-              Next Friend Options
+              Show Me My Future Ex's
             </button>
           </p>
           <p>
             <button onClick={this.logout.bind(this)}>Logout</button>
           </p>
+          <div>
+            <h1 className="app-name">ExpMatch</h1>
+            <h2 class="hopeless">find love in a hopeless place</h2>
+          </div>
         </div>
         <BrowserRouter>
           <Switch>
