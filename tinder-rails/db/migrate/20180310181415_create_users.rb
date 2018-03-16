@@ -7,8 +7,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :gender 
       t.integer :age 
       t.string :profile_pic 
-      t.integer :city
-      t.integer :tagline  
+      t.string :city
+      t.string :tagline  
 
       t.timestamps
     end

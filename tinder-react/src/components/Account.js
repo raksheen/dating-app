@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
+import "../App.css";
 
 export default class Account extends Component {
   constructor(props) {
@@ -13,6 +14,9 @@ export default class Account extends Component {
     this.showFirstProfile = this.showFirstProfile.bind(this);
   }
 
+  // componentDidMount() {
+  //   this.props.checkLogin();
+  // }
   logout() {
     this.props.logout();
     this.props.history.push("/");
@@ -60,9 +64,14 @@ export default class Account extends Component {
             <button>Home</button>
           </Link>
           <br />
-          <Link to="/DisplayProfiles">
-            <button onClick={this.showFirstProfile}>Start Finding Love</button>
-          </Link>
+          <br />
+          <div className="find-love">
+            <Link to="/DisplayProfiles">
+              <button className="love-button" onClick={this.showFirstProfile}>
+                Find Love
+              </button>
+            </Link>
+          </div>
         </div>
       );
     } else {

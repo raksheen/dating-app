@@ -50,31 +50,16 @@ export default class Home extends Component {
       <div className="app-container">
         <h1 className="simpler-name">simpler</h1>
         <div className="login-box">
-          <h3>Login: home.js</h3>
+          <h3>Sign In</h3>
           <UserForm submit={this.onSubmit} />
-          <button onClick={this.friendOptions}>all users except me </button>
           <br />
           <p>
             Don't have an account?<Link to="/register">
               <br />
-              <button>Sign up!</button>
+              <button>Create account</button>
             </Link>
           </p>
         </div>
-        <p>
-          <button
-            onClick={() => {
-              axios("http://localhost:3000/friends", {
-                headers: {
-                  Authorization: `Bearer ${TokenService.read()}`
-                }
-              }).then(res => console.log("response from friends ", res.data));
-            }}
-          >
-            Get friends
-          </button>
-        </p>
-        <br />
       </div>
     );
   }

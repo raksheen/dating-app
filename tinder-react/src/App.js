@@ -22,7 +22,8 @@ class App extends Component {
       logged: false,
       users: [],
       other_users: null,
-      model_is_open: false
+      model_is_open: false,
+      match: ""
     };
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -87,20 +88,8 @@ class App extends Component {
   logout() {
     // ev.preventDefault();
     TokenService.destroy();
+    // this.props.history.push("/account");
   }
-
-  // friendOptions() {
-  //   axios("http://localhost:3000/friends", {
-  //     method: "GET"
-  //   })
-  //     .then(resp => {
-  //       console.log("all users", resp),
-  //         this.setState({
-  //           all_users: resp
-  //         });
-  //     })
-  //     .catch(err => console.log(err));
-  // }
 
   checkLogin() {
     axios("http://localhost:3000/isLoggedIn", {
@@ -175,14 +164,13 @@ class App extends Component {
           matched: resp.data,
           model_is_open: true
         });
-        // this.openModal();
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
-  // openModal() {
-  //   return <MatchModal />;
-  // }
+  openModal() {
+    return <MatchModal />;
+  }
 
   render() {
     return (
@@ -253,6 +241,7 @@ class App extends Component {
                   logout={this.logout}
                   change={this.updateUser}
                   friendOptions={this.friendOptions}
+                  checkLogin={this.checkLogin}
                 />
               )}
             />

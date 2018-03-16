@@ -51,6 +51,8 @@ before_action :ensureLoggedIn,only:[ :swipedRight, :checkMatch]
       if match
         the_matches.push(match.user)
         puts "its a match"
+        render plain: "Yey, it's a match"
+        # redirect_to users_pick_next_friend
       end 
     end
     the_matches

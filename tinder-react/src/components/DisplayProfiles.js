@@ -64,7 +64,7 @@ class DisplayProfiles extends Component {
       this.props.other_users
     ) {
       return (
-        <div>
+        <div className="display-profiles">
           <div>
             <h2>Displays Profiles of Potentials</h2>
             <img src={this.props.other_users.profile_pic} />
